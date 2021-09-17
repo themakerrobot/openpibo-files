@@ -2,5 +2,5 @@
   - directory 구조
     + data
       - audio
-      - images
+      - image
       - icon

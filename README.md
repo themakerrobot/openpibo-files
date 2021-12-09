@@ -7,4 +7,4 @@
 >  - icon  : oled 예제에 사용할 아이콘 파일(png)
 
 ## 참고 사항
-더 자세한 설명은 [공식 문서의 FILES 탭](https://themakerrobot.github.io/x-openpibo/build/html/files/audio.html)를 참고하시기 바랍니다.
+더 자세한 설명은 [공식 문서의 FILES 탭](https://themakerrobot.github.io/openpibo-python/build/html/files/audio.html)를 참고하시기 바랍니다.

@@ -1,0 +1,16 @@
+#!/bin/sh -e
+#
+# Amp init
+sudo gpio mode 7 out
+sudo gpio write 7 1
+sudo omxplayer -o local --vol -1500 /home/pi/openpibo-files/audio/opening.mp3 &
+
+# network init
+sudo python3 /home/pi/openpibo-files/system/booting.py
+
+# run development-tool
+cd /home/pi/openpibo-tools/development-tool;sudo node main.js &
+
+# run openpibo-tools(project)
+cd /home/pi/openpibo-tools/project;sudo python3 main.py &
+exit 0

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 #
+# ap start
+sudo /home/pi/openpibo-files/system/wifi-ap-sta start
+
 # Amp init
 sudo gpio mode 7 out
 sudo gpio write 7 1

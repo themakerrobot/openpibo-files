@@ -1,7 +1,6 @@
 # 20220517
 import time,json,subprocess,os
 from openpibo.oled import Oled
-from openpibo.device import Device
 
 def disp(v):
   wip, ssid, sn = v[2] if v[0] == "" else v[0], v[3] if v[1] == "" else v[1], v[4]
@@ -15,7 +14,7 @@ if __name__ == "__main__":
   try:
     with open('/home/pi/config.json', 'r') as f:
       tmp = json.load(f)
-      Device().send_raw('#23:{}!'.format(tmp['eye']))
+      os.system('echo "#23:{}!" >/dev/ttyS0'.format(tmp['eye']))
   except Exception as ex:
       pass
 
@@ -25,8 +24,6 @@ if __name__ == "__main__":
     o.set_font(size=20)
     o.draw_text((5,20), 'THE MAKER')
     o.show()
-    
-    os.system('/home/pi/openpibo-files/system/wifi-ap-sta start')
 
     text = 'PIBO ROBOT'
     for i in range(1,11):

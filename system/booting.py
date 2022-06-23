@@ -12,7 +12,6 @@ def disp(v):
   o.show()
 
 if __name__ == "__main__":
-  os.system('/home/pi/openpibo-files/system/wifi-ap-sta start')
   try:
     with open('/home/pi/config.json', 'r') as f:
       tmp = json.load(f)
@@ -27,7 +26,7 @@ if __name__ == "__main__":
     o.draw_text((5,20), 'THE MAKER')
     o.show()
     
-    #os.system('/home/pi/openpibo-files/system/wifi-ap-sta start')
+    os.system('/home/pi/openpibo-files/system/wifi-ap-sta start')
 
     text = 'PIBO ROBOT'
     for i in range(1,11):

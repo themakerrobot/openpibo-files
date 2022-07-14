@@ -24,6 +24,7 @@ if __name__ == "__main__":
     o.set_font(size=20)
     o.draw_text((5,20), 'THE MAKER')
     o.show()
+    time.sleep(2)
 
     text = 'PIBO ROBOT'
     for i in range(1,11):
@@ -31,8 +32,8 @@ if __name__ == "__main__":
       o.set_font(size=i*2-2)
       o.draw_text((10,20), text[10-i:])
       o.show()
-      time.sleep(0.3)
-    time.sleep(5)
+      time.sleep(0.2)
+    time.sleep(3)
     o.clear()
 
     for i in range(1,15):

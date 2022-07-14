@@ -48,8 +48,9 @@ usage_and_exit() {
 	echo "Application that sets up a Raspberry Pi as a wireless access point."
 	echo "Customize the access point settings by editing ${AP_MODE_CONFIG_FILE}"
 	echo ""
-	echo -e "Usage:\\n\\t${0} {start,stop,status}"
+	echo -e "Usage:\\n\\t${0} {run,start,stop,status}"
 	echo "where:"
+	echo -e "\\trun\\t: use Raspberry Pi as wireless access point without editing system file."
 	echo -e "\\tstart\\t: use Raspberry Pi as wireless access point."
 	echo -e "\\tstop\\t: stop access point mode and restore previous configuration."
 	echo -e "\\tstatus\\t: display access point state and information."
@@ -63,7 +64,7 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 command=${1:-}
-valid_commands=("configure" "start" "stop" "status" "enable" "disable")
+valid_commands=("configure" "run" "start" "stop" "status" "enable" "disable")
 if [[ -z "${command}" ]] || [[ ! "${valid_commands[*]}" =~ ${command} ]]; then
 	# shellcheck disable=SC2145
 	echo "Invalid argument: accepted values are: ${valid_commands[@]}."
@@ -85,6 +86,10 @@ fi
 main() {
 	if [[ "${command}" == "configure" ]]; then
 		do_configure
+# Added by yjlee - Start
+	elif [[ "${command}" == "run" ]]; then
+		do_run
+# Added by yjlee - End
 	elif [[ "${command}" == "start" ]]; then
 		do_start
 	elif [[ "${command}" == "stop" ]]; then
@@ -117,6 +122,14 @@ do_disable() {
 	_remove_configure_on_hostapd_start
 	_remove_virtual_interface_udev_rule
 }
+
+# Added by yjlee - Start
+do_run() {
+	_start_ap_mode
+	_restart_networking_services
+	_wait_for_virtual_interface_ip_addr
+}
+# Added by yjlee - End
 
 do_start() {
 	_enable_wireless_card_if_necessary

@@ -1,12 +1,14 @@
 #!/bin/sh -e
 #
 # ap start
-sudo /home/pi/openpibo-files/system/wifi-ap-sta run
+#sudo /home/pi/openpibo-files/system/wifi-ap-sta run
 
 # Amp init
 sudo gpio mode 7 out
 sudo gpio write 7 1
-sudo omxplayer -o local --vol -1500 /home/pi/openpibo-files/audio/opening.mp3 &
+
+sudo amixer -c Headphones sset Headphone 75%
+sudo play /home/pi/openpibo-files/audio/opening.mp3 reverb &
 
 # network init
 sudo python3 /home/pi/openpibo-files/system/booting.py

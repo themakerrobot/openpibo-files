@@ -125,6 +125,7 @@ do_disable() {
 
 # Added by yjlee - Start
 do_run() {
+	do_configure
 	_start_ap_mode
 	_restart_networking_services
 	_wait_for_virtual_interface_ip_addr

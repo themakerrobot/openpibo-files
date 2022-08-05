@@ -108,6 +108,12 @@ do_configure() {
 	_patch_config_files
 }
 
+# Added by yjlee - Start
+do_configure_hostapd() {
+	_patch_config_hostapd_files
+}
+# Added by yjlee - End
+
 do_enable() {
 	_enable_wireless_card_if_necessary
 	_create_virtual_interface_udev_rule
@@ -125,7 +131,7 @@ do_disable() {
 
 # Added by yjlee - Start
 do_run() {
-	do_configure
+	do_configure_hostapd
 	_start_ap_mode
 	_restart_networking_services
 	_wait_for_virtual_interface_ip_addr
@@ -263,6 +269,24 @@ _clean_config_files() {
 	echo "Restoring /etc/default/isc-dhcp-server"
 	_delete_config_file_modifications "${package_name}" /etc/default/isc-dhcp-server
 }
+
+# Added by yjlee - Start
+_patch_config_hostapd_files() {
+	hostapd_conf="/etc/hostapd/hostapd.conf"
+	if [[ -f "${hostapd_conf}" ]]; then
+		echo "Backing up existing ${hostapd_conf}..."
+		mv "${hostapd_conf}" "${hostapd_conf}.orig"
+	fi
+
+	echo "Configuring hostapd ..."
+	# For each HOSTAPD_ prefixed environment variable, write to file
+	for var in "${!HOSTAPD_@}"; do
+		echo "${var/HOSTAPD_/}=${!var}" >>"${hostapd_conf}"
+	done
+
+	echo -e "interface=${AP_IFACE}\\nssid=${AP_SSID}\\nwpa_passphrase=${AP_PASSWORD}" >>"${hostapd_conf}"
+}
+# Added by yjlee - End
 
 _patch_config_files() {
 	hostapd_conf="/etc/hostapd/hostapd.conf"

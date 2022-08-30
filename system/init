@@ -20,5 +20,5 @@ cd /home/pi/openpibo-tools/ide;sudo node main.js &
 cd /home/pi/openpibo-tools/tools;sudo python3 main.py &
 
 # run browsepy
-sudo browsepy 0.0.0.0 50001 --directory /home/pi --removable /home/pi --upload /home/pi &
+# sudo browsepy 0.0.0.0 50001 --directory /home/pi --removable /home/pi --upload /home/pi &
 exit 0
